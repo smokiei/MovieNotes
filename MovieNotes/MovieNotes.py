@@ -1,6 +1,19 @@
+"""
+Create micro library that allows users to work with notes about ukrainian films. Note should contain film_name, note, rating (rating - is 1 - 5 rating of the film) Micro lib should contain the next funcitonality:
+Read notes from .csv file
+Add note to .csv file
+Remove note from .csv file
+Print notes to console
+Get films with the highest rating
+Get films with the lowest rating
+Get average rating among all films
+"""
+
 import csv
+from statistics import mean
 
 from MovieNotes import Note
+
 
 class MovieNotes:
     def __init__(self, csv_file_name, note: Note.Note = None):
@@ -8,11 +21,11 @@ class MovieNotes:
         self.__add_note(note)
         self.__csv_file_name = csv_file_name
 
-    # @classmethod
-    # def from_notes(cls, csv_file_name, notes):
-    #     cl = cls(csv_file_name=csv_file_name)
-    #     cl.__notes = notes
-    #     return cl
+    @classmethod
+    def from_notes(cls, csv_file_name, notes):
+        cl = cls(csv_file_name=csv_file_name)
+        cl.__notes = notes
+        return cl
 
     def read_notes_from_csv(self):
         with open(self.__csv_file_name) as stream:
@@ -23,7 +36,7 @@ class MovieNotes:
                     self.__notes.append(note)
 
     def __dump_to_file(self):
-        with open(self.__csv_file_name, "w") as stream:
+        with open(self.__csv_file_name, "w", newline='') as stream:
             writer = csv.writer(stream)
             writer.writerows(self.__notes)
 
@@ -49,12 +62,14 @@ class MovieNotes:
 
     @property
     def film_with_max_rating(self):
-        return max(rate.rating for rate in self.__notes)
+        maxrate = max(rate.rating for rate in self.__notes)
+        return [n for n in self.__notes if n.rating == maxrate]
 
     @property
     def film_with_min_rating(self):
-        return min(rate.rating for rate in self.__notes)
+        minrate = min(rate.rating for rate in self.__notes)
+        return [n for n in self.__notes if n.rating == minrate]
 
-    # @property
-    # def film_with_avg_rating(self):
-    #     return return mean(rate.rating for rate in self.__notes__)
+    @property
+    def film_avg_rating(self):
+        return mean(rate.rating for rate in self.__notes)

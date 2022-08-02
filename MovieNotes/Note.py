@@ -9,9 +9,6 @@ exception_text = f"rating must be float in range {ratemin} - {ratemax}"
 
 
 class Note:
-    # film_name = None
-    # note = None
-    # _rating = range(1, 6)
 
     def __init__(self, film_name, note, rating):
 
