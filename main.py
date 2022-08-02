@@ -3,8 +3,8 @@ from MovieNotes import MovieNotes
 
 
 def main():
-    mynotes = Note.Note("прятки", "best of the best movie", 5)
-    mynotes = MovieNotes.MovieNotes("file.csv", mynotes)
+    mynote = Note.Note("прятки", "best of the best movie", 5)
+    mynotes = MovieNotes.MovieNotes("file.csv", mynote)
 
     mynotes.add_note_to_csv(Note.Note("Кино1", "норм", 3.5))
     mynotes.add_note_to_csv(Note.Note("Кіборги", "нормa", 4.5))
